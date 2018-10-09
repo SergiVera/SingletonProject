@@ -29,9 +29,9 @@ public class I18NManagerTest {
     @Test
     public void testFileCatalan(){
         try {
-            String datal1 = i18n.getString("ca", "l1");
+            String datal1 = i18n.getInstance().getString("ca", "l1");
             assertEquals("Hola", datal1);
-            String datal2 = i18n.getString("ca", "l2");
+            String datal2 = i18n.getInstance().getString("ca", "l2");
             assertEquals("Adeu", datal2);
         }
         catch(Exception e){
@@ -43,9 +43,9 @@ public class I18NManagerTest {
     @Test
     public void testFileSpanish(){
         try {
-            String datal1 = i18n.getString("es", "l1");
+            String datal1 = i18n.getInstance().getString("es", "l1");
             assertEquals("Hola", datal1);
-            String datal2 = i18n.getString("es", "l2");
+            String datal2 = i18n.getInstance().getString("es", "l2");
             assertEquals("Adios", datal2);
         }
         catch(Exception e){
@@ -57,13 +57,20 @@ public class I18NManagerTest {
     @Test
     public void testFileEnglish(){
         try {
-            String datal1 = i18n.getString("en", "l1");
+            String datal1 = i18n.getInstance().getString("en", "l1");
             assertEquals("Hello", datal1);
-            String datal2 = i18n.getString("en", "l2");
+            String datal2 = i18n.getInstance().getString("en", "l2");
             assertEquals("Bye", datal2);
         }
         catch(Exception e){
             log.warn("The file doesn't exist!! : " +e.getMessage());
         }
     }
+
+    @Test(expected = Exception.class)
+    public void testFileAndException() throws Exception {
+        String datal1 = i18n.getInstance().getString("ru", "l1");
+        assertEquals("Hello", datal1);
+    }
+
 }

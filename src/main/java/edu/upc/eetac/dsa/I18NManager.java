@@ -1,9 +1,13 @@
 package edu.upc.eetac.dsa;
 
+import org.apache.log4j.Logger;
+
 import java.util.HashMap;
 import java.util.ResourceBundle;
 
 public class I18NManager {
+    final static Logger log = Logger.getLogger(I18NManager.class.getName());
+
 
     //Let's declare the one and unique one instance
     private static I18NManager instance;
@@ -27,15 +31,18 @@ public class I18NManager {
     //In this case we are going to declare a method that add into the hashmap the values of the properties files
     public String getString (String filename, String key) throws Exception{
         //Let's see if the file exists
-        ResourceBundle rbundle;
-        ResourceBundle e = ResourceBundle.getBundle(filename);
-        if (e == null) throw new Exception();
+        ResourceBundle rbundle = languages.get(filename);
 
-        else {
+        if (rbundle ==null ) {
+            log.info ("Vaig al sistema de fitxers");
             rbundle = ResourceBundle.getBundle(filename);
             languages.put(filename, rbundle);
-            return e.getString(key);
         }
+        else {
+            log.info("Utilitzem el bundle que hi ha a cache!");
+        }
+
+        return rbundle.getString(key);
     }
 
 }
